@@ -26,13 +26,13 @@ func HomePage(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	marshal , _ := json.Marshal(claims)
+	marshal, _ := json.Marshal(claims)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	w.Write(marshal)
 }
-func SalaryPage(w http.ResponseWriter, r *http.Request) {
+func PremiumPage(w http.ResponseWriter, r *http.Request) {
 	c, err := r.Cookie("token")
 	if err != nil {
 		if err == http.ErrNoCookie {
@@ -54,11 +54,11 @@ func SalaryPage(w http.ResponseWriter, r *http.Request) {
 
 	if claims.Role == "employee" {
 		w.WriteHeader(http.StatusUnauthorized)
-		w.Write([]byte("This page isn't for employee"))
+		w.Write([]byte("This page isn't for non-premium"))
 		return
 	}
 
-	marshal , _ := json.Marshal(claims)
+	marshal, _ := json.Marshal(claims)
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
